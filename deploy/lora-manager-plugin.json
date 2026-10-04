@@ -1,0 +1,23 @@
+{
+  "plugin_id": "comfyui-lora-manager",
+  "repository": "https://github.com/willmiao/ComfyUI-Lora-Manager",
+  "version": "1.2.1",
+  "registry_status_checked": "NodeVersionStatusActive",
+  "checked_date": "2026-10-02",
+  "license": "GPL-3.0",
+  "download_url": "https://cdn.comfy.org/willmiao/comfyui-lora-manager/1.2.1/node.zip",
+  "archive_bytes": 16717185,
+  "archive_sha256": "3bd677d62ec549162791126e7153ee4db43be9413ca2ab0db83ceef1e22802a4",
+  "files_sha256": {
+    "LICENSE": "809305978e6a73045059f7a97d83af3c6197f35a84072d6677e501cd1950e11c",
+    "requirements.txt": "c2c6cfc6d2f44c75d41fd7de6f6418bf7b9b002017fc6170f1f2ecb15eb44a56",
+    "pyproject.toml": "8428d1d8ccb729e2c061f66abe9800187d66b84323f0847a8730fe1d60df1205",
+    "__init__.py": "283b8aa061db5ce463b55a3d24ae0c8c32fe18aa546e474ce5087c19ded81f10",
+    "py/nodes/lora_loader.py": "dff00e7c072449fdb9ea639f17e4d146e21e1e8e5d052f67fe98206f13d09bcb",
+    "py/nodes/trigger_word_toggle.py": "2a208aeb321cf703fe6ac0f9f1c7db24b4b963fb452c30e44eecab4be144448c",
+    "web/comfyui/lora_loader.js": "7ac41c80729b4f2ceff7497cf18345746ef1f1027b92b910a1e4f1c22a39646b",
+    "web/comfyui/trigger_word_toggle.js": "b1246cd349c20409ffff368f5c09e842950c59088346f9e7c2bee4b835e51429"
+  },
+  "weights_included": false,
+  "newer_registry_versions": "1.2.2-1.2.4 flagged; reason unknown; not installed"
+}

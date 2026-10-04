@@ -1,0 +1,202 @@
+{
+  "id": "c63d7705-e69e-4a74-825c-f7a2e0afc440",
+  "revision": 0,
+  "last_node_id": 5,
+  "last_link_id": 2,
+  "nodes": [
+    {
+      "id": 2,
+      "type": "HuizuoCanvasPromptOptimize",
+      "title": "中文要求 / AI优化开关 · 默认关闭",
+      "pos": [
+        490,
+        310
+      ],
+      "size": [
+        400,
+        450
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": null
+        },
+        {
+          "name": "image_1",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_2",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_3",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "image_4",
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "links": [
+            1
+          ]
+        },
+        {
+          "name": "details_json",
+          "type": "STRING",
+          "links": [
+            2
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "HuizuoCanvasPromptOptimize"
+      },
+      "widgets_values": [
+        false,
+        "文生图",
+        "白色陶瓷杯，红色把手，杯身准确写“COFFEE”，米色背景，柔和产品摄影光线。",
+        8192
+      ]
+    },
+    {
+      "id": 3,
+      "type": "PreviewAny",
+      "title": "可用提示词 · 只复制这里的文字",
+      "pos": [
+        930,
+        310
+      ],
+      "size": [
+        360,
+        250
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewAny"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 5,
+      "type": "PreviewAny",
+      "title": "结构详情 · 不送入绘图编码器",
+      "pos": [
+        930,
+        630
+      ],
+      "size": [
+        360,
+        250
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewAny"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 4,
+      "type": "MarkdownNote",
+      "title": "使用说明",
+      "pos": [
+        40,
+        30
+      ],
+      "size": [
+        1220,
+        210
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "MarkdownNote"
+      },
+      "widgets_values": [
+        "普通出图请打开00／01／02／03／20工作流：AI优化开关已经在主画布，开启后自动先优化再出图。本文件仅用于独立预览文字，不生成图片。默认关闭，原文透传且无需PE权重；开启后按任务加载已准备的本地官方PE模型，需要GPU。\n无卡模式可下载模型，不执行PE。图1为主图，图2–4按顺序提供参考。默认8192输出长度含思考，截断时增加长度或关闭优化。官方T2I参考16256、编辑24000，长度越大耗时越长。\n只采用左侧可用提示词文字；结构详情不送入绘图模型。画幅建议需核对，主生成流程仍按主图与尺寸设置决定画幅。\n示例素材：文生图无需图片；编辑示例图1为白杯红把手产品照，图2为蓝白格纹。按任务对应填写，未逐条验证任意示例效果。\n侧栏提示词示例可预览／采用／撤销，更多2–4图分工见包内提示词示例.md。原生节点在「绘作台/可选提示词优化」分类；本工作流只预览，不自动回填另一个生成画布。"
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      2,
+      0,
+      3,
+      0,
+      "STRING"
+    ],
+    [
+      2,
+      2,
+      1,
+      5,
+      0,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.7,
+      "offset": [
+        20,
+        20
+      ]
+    },
+    "huizuoPromptEnhancer": {
+      "task": "t2i",
+      "optional": true
+    }
+  },
+  "version": 0.4
+}

@@ -1,0 +1,1029 @@
+{
+  "id": "688d47e6-29a3-5d5f-b010-51c3958a4998",
+  "revision": 0,
+  "last_node_id": 17,
+  "last_link_id": 14,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "UNETLoader",
+      "title": "扩散模型 · INT8",
+      "pos": [
+        40,
+        1560
+      ],
+      "size": [
+        400,
+        90
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            3
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "UNETLoader",
+        "huizuoRole": "model",
+        "models": [
+          {
+            "name": "qwen_image_2.1_int8_convrot.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/Qwen-Image-2.1/resolve/cb504a4090723e43f17ad01cec0359490e2de613/diffusion_models/qwen_image_2.1_int8_convrot.safetensors",
+            "directory": "diffusion_models"
+          }
+        ]
+      },
+      "widgets_values": [
+        "qwen_image_2.1_int8_convrot.safetensors",
+        "default"
+      ],
+      "widgets_values_named": {
+        "unet_name": "qwen_image_2.1_int8_convrot.safetensors",
+        "weight_dtype": "default"
+      }
+    },
+    {
+      "id": 2,
+      "type": "CLIPLoader",
+      "title": "文本编码器 · Qwen3-VL",
+      "pos": [
+        470,
+        1560
+      ],
+      "size": [
+        400,
+        120
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            4
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPLoader",
+        "huizuoRole": "clip",
+        "models": [
+          {
+            "name": "qwen3vl_8b_int8_convrot.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/Qwen-Image-2.1/resolve/cb504a4090723e43f17ad01cec0359490e2de613/text_encoders/qwen3vl_8b_int8_convrot.safetensors",
+            "directory": "text_encoders"
+          }
+        ]
+      },
+      "widgets_values": [
+        "qwen3vl_8b_int8_convrot.safetensors",
+        "qwen_image",
+        "default"
+      ],
+      "widgets_values_named": {
+        "clip_name": "qwen3vl_8b_int8_convrot.safetensors",
+        "type": "qwen_image",
+        "device": "default"
+      }
+    },
+    {
+      "id": 3,
+      "type": "VAELoader",
+      "title": "图像编解码器 · 2.1 专用 VAE",
+      "pos": [
+        900,
+        1560
+      ],
+      "size": [
+        400,
+        70
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            5,
+            13
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAELoader",
+        "huizuoRole": "vae",
+        "models": [
+          {
+            "name": "qwen_image_2.1_vae_bf16.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/Qwen-Image-2.1/resolve/cb504a4090723e43f17ad01cec0359490e2de613/vae/qwen_image_2.1_vae_bf16.safetensors",
+            "directory": "vae"
+          }
+        ]
+      },
+      "widgets_values": [
+        "qwen_image_2.1_vae_bf16.safetensors"
+      ],
+      "widgets_values_named": {
+        "vae_name": "qwen_image_2.1_vae_bf16.safetensors"
+      }
+    },
+    {
+      "id": 4,
+      "type": "QwenImage21Cache",
+      "title": "参考图缓存 · 自动",
+      "pos": [
+        1330,
+        1560
+      ],
+      "size": [
+        280,
+        90
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            6
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "QwenImage21Cache",
+        "huizuoRole": "cache"
+      },
+      "widgets_values": [
+        "auto",
+        "default"
+      ],
+      "widgets_values_named": {
+        "device": "auto",
+        "dtype": "default"
+      }
+    },
+    {
+      "id": 5,
+      "type": "TextEncodeQwenImage21",
+      "title": "绘图编码 · 接收上方提示词",
+      "pos": [
+        40,
+        1070
+      ],
+      "size": [
+        440,
+        230
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 4
+        },
+        {
+          "name": "images.image_1",
+          "type": "IMAGE",
+          "link": null,
+          "shape": 7,
+          "label": "参考图 1"
+        },
+        {
+          "name": "images.image_2",
+          "type": "IMAGE",
+          "link": null,
+          "shape": 7,
+          "label": "参考图 2"
+        },
+        {
+          "name": "images.image_3",
+          "type": "IMAGE",
+          "link": null,
+          "shape": 7,
+          "label": "参考图 3"
+        },
+        {
+          "name": "images.image_4",
+          "type": "IMAGE",
+          "link": null,
+          "shape": 7,
+          "label": "参考图 4"
+        },
+        {
+          "name": "images.image_5",
+          "type": "IMAGE",
+          "link": null,
+          "shape": 7,
+          "label": "参考图 5"
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 5,
+          "shape": 7
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "link": 1,
+          "widget": {
+            "name": "prompt"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "links": [
+            7
+          ]
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "links": [
+            8
+          ]
+        },
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "links": [
+            10
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "TextEncodeQwenImage21",
+        "huizuoRole": "encode"
+      },
+      "widgets_values": [
+        "一张精致的咖啡店海报，暖色自然光，木质桌面上一杯拿铁，背景简洁。海报标题准确写出“今天也要好好生活”，文字清晰，构图留白，竖版商业摄影风格。",
+        "",
+        992
+      ],
+      "widgets_values_named": {
+        "prompt": "一张精致的咖啡店海报，暖色自然光，木质桌面上一杯拿铁，背景简洁。海报标题准确写出“今天也要好好生活”，文字清晰，构图留白，竖版商业摄影风格。",
+        "negative_prompt": "",
+        "resolution": 992
+      }
+    },
+    {
+      "id": 6,
+      "type": "HuizuoEphemeralLoadImage",
+      "title": "图 1 · 主图 / 构图基准",
+      "pos": [
+        530,
+        310
+      ],
+      "size": [
+        310,
+        285
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 2,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": []
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "HuizuoEphemeralLoadImage",
+        "huizuoRole": "image1"
+      },
+      "widgets_values": [
+        "",
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "",
+        "upload": "image"
+      }
+    },
+    {
+      "id": 7,
+      "type": "HuizuoEphemeralLoadImage",
+      "title": "图 2 · 参考素材",
+      "pos": [
+        865,
+        310
+      ],
+      "size": [
+        310,
+        285
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 2,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": []
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "HuizuoEphemeralLoadImage",
+        "huizuoRole": "image2"
+      },
+      "widgets_values": [
+        "",
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "",
+        "upload": "image"
+      }
+    },
+    {
+      "id": 8,
+      "type": "HuizuoEphemeralLoadImage",
+      "title": "图 3 · 参考素材",
+      "pos": [
+        530,
+        655
+      ],
+      "size": [
+        310,
+        285
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 2,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": []
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "HuizuoEphemeralLoadImage",
+        "huizuoRole": "image3"
+      },
+      "widgets_values": [
+        "",
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "",
+        "upload": "image"
+      }
+    },
+    {
+      "id": 9,
+      "type": "HuizuoEphemeralLoadImage",
+      "title": "图 4 · 参考素材",
+      "pos": [
+        865,
+        655
+      ],
+      "size": [
+        310,
+        285
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 2,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": []
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "HuizuoEphemeralLoadImage",
+        "huizuoRole": "image4"
+      },
+      "widgets_values": [
+        "",
+        "image"
+      ],
+      "widgets_values_named": {
+        "image": "",
+        "upload": "image"
+      }
+    },
+    {
+      "id": 10,
+      "type": "EmptyLatentImage",
+      "title": "文生图尺寸 · 编辑模式沿用主图",
+      "pos": [
+        1220,
+        700
+      ],
+      "size": [
+        280,
+        130
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            9
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyLatentImage",
+        "huizuoRole": "latent"
+      },
+      "widgets_values": [
+        1024,
+        1024,
+        1
+      ],
+      "widgets_values_named": {
+        "width": 1024,
+        "height": 1024,
+        "batch_size": 1
+      }
+    },
+    {
+      "id": 11,
+      "type": "ComfySwitchNode",
+      "title": "尺寸来源 · 开=主图 / 关=文生图",
+      "pos": [
+        1220,
+        910
+      ],
+      "size": [
+        280,
+        90
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "on_false",
+          "type": "LATENT",
+          "link": 9,
+          "shape": 7
+        },
+        {
+          "name": "on_true",
+          "type": "LATENT",
+          "link": 10,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "LATENT",
+          "links": [
+            11
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ComfySwitchNode",
+        "huizuoRole": "latentSwitch"
+      },
+      "widgets_values": [
+        false
+      ],
+      "widgets_values_named": {
+        "switch": false
+      }
+    },
+    {
+      "id": 12,
+      "type": "KSampler",
+      "title": "02 · 出图参数",
+      "pos": [
+        1220,
+        310
+      ],
+      "size": [
+        280,
+        290
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 6
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 7
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 8
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 11
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            12
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler",
+        "huizuoRole": "sampler"
+      },
+      "widgets_values": [
+        42,
+        "randomize",
+        25,
+        1,
+        "euler",
+        "simple",
+        1
+      ],
+      "widgets_values_named": {
+        "seed": 42,
+        "control_after_generate": "randomize",
+        "steps": 25,
+        "cfg": 1,
+        "sampler_name": "euler",
+        "scheduler": "simple",
+        "denoise": 1
+      }
+    },
+    {
+      "id": 13,
+      "type": "VAEDecode",
+      "title": "解码",
+      "pos": [
+        1580,
+        1570
+      ],
+      "size": [
+        220,
+        70
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 12
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 13
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            14
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode",
+        "huizuoRole": "decode"
+      }
+    },
+    {
+      "id": 14,
+      "type": "HuizuoEphemeralPreview",
+      "title": "03 · 内存预览 · 关机清除",
+      "pos": [
+        1580,
+        310
+      ],
+      "size": [
+        470,
+        690
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 14
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "HuizuoEphemeralPreview",
+        "huizuoRole": "save"
+      }
+    },
+    {
+      "id": 15,
+      "type": "MarkdownNote",
+      "title": "绘作台 · Qwen Image 2.1 创作工作流",
+      "pos": [
+        40,
+        30
+      ],
+      "size": [
+        2010,
+        185
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "MarkdownNote",
+        "huizuoRole": "guide"
+      },
+      "widgets_values": [
+        "# 绘作台 · Qwen Image 2.1\n**三步操作：** ①选择对应工作流，填写画面或编辑要求 → ②编辑时上传素材，调整尺寸/步数 → ③点击 ComfyUI「运行」。\n\n**文生图：** 不上传图片。**单图编辑：** 上传图1。**多图融合：** 上传图1和图2，用 `<image1>`、`<image2>` 说明用途。图1决定编辑输出比例。\n\n左侧「绘作台」为可选的快捷操作：整合版可切换三个任务，使用2–4张参考图。模型在下方设置一次，日常主要操作上方区域。\n\n文生图默认1024²；编辑默认约1MP（992预算）。25步起步，40步用于细节对比。编辑预算请避开1024，以免当前版本出现颗粒。PNG保留工作流，用户修改后请另存自己的副本。授权与环境说明见 README。\n\n**中文示例：** 侧栏提示词示例先预览再采用，可撤销；多图明确图1主图、图2–4各自提供什么，3／4图先选择对应图数。完整15个中文模板见提示词示例.md。免费结构助手按填写的分工整理草稿，不读取图片。\n\n**画布AI优化：** 最左侧节点第一项“启用AI优化”为开关，默认关闭。关闭直接使用原始中文要求；开启后本地官方PE先优化文字，再送入绘图编码器。无需更换画布或手动复制JSON。PE权重按需准备，未准备时关闭可正常出图；画幅仍由原图与生成设置决定。\n**图片保留：** 本流程生成图及上传参考图在当前服务内存中使用，实例完整关机后释放；模型与设置保留。需要图片请关机前下载到本机。"
+      ],
+      "widgets_values_named": {
+        "text": "# 绘作台 · Qwen Image 2.1\n**三步操作：** ①选择对应工作流，填写画面或编辑要求 → ②编辑时上传素材，调整尺寸/步数 → ③点击 ComfyUI「运行」。\n\n**文生图：** 不上传图片。**单图编辑：** 上传图1。**多图融合：** 上传图1和图2，用 `<image1>`、`<image2>` 说明用途。图1决定编辑输出比例。\n\n左侧「绘作台」为可选的快捷操作：整合版可切换三个任务，使用2–4张参考图。模型在下方设置一次，日常主要操作上方区域。\n\n文生图默认1024²；编辑默认约1MP（992预算）。25步起步，40步用于细节对比。编辑预算请避开1024，以免当前版本出现颗粒。PNG保留工作流，用户修改后请另存自己的副本。授权与环境说明见 README。\n\n**中文示例：** 侧栏提示词示例先预览再采用，可撤销；多图明确图1主图、图2–4各自提供什么，3／4图先选择对应图数。完整15个中文模板见提示词示例.md。免费结构助手按填写的分工整理草稿，不读取图片。\n\n**画布AI优化：** 最左侧节点第一项“启用AI优化”为开关，默认关闭。关闭直接使用原始中文要求；开启后本地官方PE先优化文字，再送入绘图编码器。无需更换画布或手动复制JSON。PE权重按需准备，未准备时关闭可正常出图；画幅仍由原图与生成设置决定。\n**图片保留：** 本流程生成图及上传参考图在当前服务内存中使用，实例完整关机后释放；模型与设置保留。需要图片请关机前下载到本机。"
+      }
+    },
+    {
+      "id": 16,
+      "type": "HuizuoCanvasPromptOptimize",
+      "title": "01 · 中文要求 / AI优化开关（默认关闭）",
+      "pos": [
+        40,
+        310
+      ],
+      "size": [
+        440,
+        450
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "image_1",
+          "type": "IMAGE",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "image_2",
+          "type": "IMAGE",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "image_3",
+          "type": "IMAGE",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "image_4",
+          "type": "IMAGE",
+          "link": null,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "links": [
+            1,
+            2
+          ]
+        },
+        {
+          "name": "details_json",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "HuizuoCanvasPromptOptimize",
+        "huizuoRole": "pe"
+      },
+      "widgets_values": [
+        false,
+        "文生图",
+        "一张精致的咖啡店海报，暖色自然光，木质桌面上一杯拿铁，背景简洁。海报标题准确写出“今天也要好好生活”，文字清晰，构图留白，竖版商业摄影风格。",
+        8192
+      ],
+      "widgets_values_named": {
+        "enabled": false,
+        "task": "文生图",
+        "prompt": "一张精致的咖啡店海报，暖色自然光，木质桌面上一杯拿铁，背景简洁。海报标题准确写出“今天也要好好生活”，文字清晰，构图留白，竖版商业摄影风格。",
+        "max_length": 8192
+      }
+    },
+    {
+      "id": 17,
+      "type": "PreviewAny",
+      "title": "实际送入绘图的提示词",
+      "pos": [
+        40,
+        800
+      ],
+      "size": [
+        440,
+        220
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewAny",
+        "huizuoRole": "pePreview"
+      }
+    }
+  ],
+  "links": [
+    [
+      1,
+      16,
+      0,
+      5,
+      7,
+      "STRING"
+    ],
+    [
+      2,
+      16,
+      0,
+      17,
+      0,
+      "STRING"
+    ],
+    [
+      3,
+      1,
+      0,
+      4,
+      0,
+      "MODEL"
+    ],
+    [
+      4,
+      2,
+      0,
+      5,
+      0,
+      "CLIP"
+    ],
+    [
+      5,
+      3,
+      0,
+      5,
+      6,
+      "VAE"
+    ],
+    [
+      6,
+      4,
+      0,
+      12,
+      0,
+      "MODEL"
+    ],
+    [
+      7,
+      5,
+      0,
+      12,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      8,
+      5,
+      1,
+      12,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      9,
+      10,
+      0,
+      11,
+      0,
+      "LATENT"
+    ],
+    [
+      10,
+      5,
+      2,
+      11,
+      1,
+      "LATENT"
+    ],
+    [
+      11,
+      11,
+      0,
+      12,
+      3,
+      "LATENT"
+    ],
+    [
+      12,
+      12,
+      0,
+      13,
+      0,
+      "LATENT"
+    ],
+    [
+      13,
+      3,
+      0,
+      13,
+      1,
+      "VAE"
+    ],
+    [
+      14,
+      13,
+      0,
+      14,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "01 中文要求 · 可选AI优化",
+      "bounding": [
+        15,
+        255,
+        490,
+        1080
+      ],
+      "color": "#346c68",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 2,
+      "title": "参考素材 · 图1为主图",
+      "bounding": [
+        510,
+        255,
+        690,
+        825
+      ],
+      "color": "#5b658c",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 3,
+      "title": "02  生成设置",
+      "bounding": [
+        1205,
+        255,
+        335,
+        825
+      ],
+      "color": "#826748",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 4,
+      "title": "03  作品输出",
+      "bounding": [
+        1560,
+        255,
+        520,
+        825
+      ],
+      "color": "#665384",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 5,
+      "title": "模型与解码 · 部署时设置一次",
+      "bounding": [
+        15,
+        1495,
+        2065,
+        240
+      ],
+      "color": "#414654",
+      "font_size": 24,
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "version": 0.4,
+  "extra": {
+    "ds": {
+      "scale": 0.65,
+      "offset": [
+        30,
+        30
+      ]
+    },
+    "huizuo": {
+      "version": 1,
+      "task": "t2i",
+      "refCount": 2,
+      "ratio": "1:1",
+      "quality": "standard",
+      "pixelBudget": 1
+    }
+  }
+}

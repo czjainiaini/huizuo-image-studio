@@ -1,0 +1,6 @@
+* text=auto eol=lf
+*.sh text eol=lf
+Dockerfile text eol=lf
+*.json text eol=lf
+custom_nodes/ComfyUI-HuizuoPanel/web/pe/*.txt -text
+third_party/* -text

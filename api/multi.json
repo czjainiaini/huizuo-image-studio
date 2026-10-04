@@ -1,0 +1,177 @@
+{
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "qwen_image_2.1_int8_convrot.safetensors",
+      "weight_dtype": "default"
+    },
+    "_meta": {
+      "title": "扩散模型 · INT8"
+    }
+  },
+  "2": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "qwen3vl_8b_int8_convrot.safetensors",
+      "type": "qwen_image",
+      "device": "default"
+    },
+    "_meta": {
+      "title": "文本编码器 · Qwen3-VL"
+    }
+  },
+  "3": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "qwen_image_2.1_vae_bf16.safetensors"
+    },
+    "_meta": {
+      "title": "图像编解码器 · 2.1 专用 VAE"
+    }
+  },
+  "4": {
+    "class_type": "QwenImage21Cache",
+    "inputs": {
+      "device": "auto",
+      "dtype": "default",
+      "model": [
+        "1",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "参考图缓存 · 自动"
+    }
+  },
+  "5": {
+    "class_type": "TextEncodeQwenImage21",
+    "inputs": {
+      "prompt": "以 <image1> 为主画面，将 <image2> 中的物品自然放入主画面。保持主图主体身份和原有构图，匹配物品的透视、比例、材质、光线和接触阴影。",
+      "negative_prompt": "",
+      "resolution": 992,
+      "clip": [
+        "2",
+        0
+      ],
+      "images.image_1": [
+        "6",
+        0
+      ],
+      "images.image_2": [
+        "7",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "绘图编码 · 接收上方提示词"
+    }
+  },
+  "6": {
+    "class_type": "HuizuoEphemeralLoadImage",
+    "inputs": {
+      "image": ""
+    },
+    "_meta": {
+      "title": "图 1 · 主图 / 构图基准"
+    }
+  },
+  "7": {
+    "class_type": "HuizuoEphemeralLoadImage",
+    "inputs": {
+      "image": ""
+    },
+    "_meta": {
+      "title": "图 2 · 参考素材"
+    }
+  },
+  "10": {
+    "class_type": "EmptyLatentImage",
+    "inputs": {
+      "width": 1024,
+      "height": 1024,
+      "batch_size": 1
+    },
+    "_meta": {
+      "title": "文生图尺寸 · 编辑模式沿用主图"
+    }
+  },
+  "11": {
+    "class_type": "ComfySwitchNode",
+    "inputs": {
+      "switch": true,
+      "on_false": [
+        "10",
+        0
+      ],
+      "on_true": [
+        "5",
+        2
+      ]
+    },
+    "_meta": {
+      "title": "尺寸来源 · 开=主图 / 关=文生图"
+    }
+  },
+  "12": {
+    "class_type": "KSampler",
+    "inputs": {
+      "seed": 42,
+      "steps": 25,
+      "cfg": 1,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1,
+      "model": [
+        "4",
+        0
+      ],
+      "positive": [
+        "5",
+        0
+      ],
+      "negative": [
+        "5",
+        1
+      ],
+      "latent_image": [
+        "11",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "02 · 出图参数"
+    }
+  },
+  "13": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "12",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "解码"
+    }
+  },
+  "14": {
+    "class_type": "HuizuoEphemeralPreview",
+    "inputs": {
+      "images": [
+        "13",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "03 · 内存预览 · 关机清除"
+    }
+  }
+}

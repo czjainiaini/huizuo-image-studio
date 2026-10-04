@@ -1,0 +1,10 @@
+{
+  "observed_at": "2026-10-01",
+  "source": "https://www.autodl.art/app/common/model",
+  "status": "paths_observed_in_platform_ui; bytes_and_sha256_not_yet_verified_on_instance",
+  "models": {
+    "diffusion_models/qwen_image_2.1_int8_convrot.safetensors": "/.autodl/7c/40/26/7c4026516e59abf14c6d2eea96f5b64d",
+    "text_encoders/qwen3vl_8b_int8_convrot.safetensors": "/.autodl/6f/32/f9/6f32f9794879cea9e29830e9262c019c",
+    "vae/qwen_image_2.1_vae_bf16.safetensors": "/.autodl/e9/91/c8/e991c8302f76ed7491244e0a5f0b64db"
+  }
+}

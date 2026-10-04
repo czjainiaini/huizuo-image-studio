@@ -1,0 +1,9 @@
+{
+  "name": "huizuo-workflow-studio",
+  "version": "0.4.4",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs"
+  }
+}

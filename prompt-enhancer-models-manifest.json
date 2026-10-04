@@ -1,0 +1,8 @@
+{
+  "repository": "Comfy-Org/Qwen-Image-2.1",
+  "revision": "cb504a4090723e43f17ad01cec0359490e2de613",
+  "models": [
+    {"profile":"edit", "path":"text_encoders/qwen3.5_9b_qwen_image_2.1_pe_i2i.int8_convrot.safetensors", "bytes":9471072252, "sha256":"32707d01b427e488af252b95c551989aad59f9fec611a694f5db6bde7f0f1f6c"},
+    {"profile":"t2i", "path":"text_encoders/qwen3.5_9b_qwen_image_2.1_pe_t2i.int8_convrot.safetensors", "bytes":9471072252, "sha256":"9182abae56fe05459840a86d22abd21f972061c92fce032630af680c8c5178d3"}
+  ]
+}
